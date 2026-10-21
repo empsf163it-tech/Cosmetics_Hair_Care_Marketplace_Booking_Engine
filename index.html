@@ -287,7 +287,7 @@
         .grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 23px
+            gap: 12px
         }
 
         .grid.four {
@@ -608,7 +608,7 @@
         .gallery {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px
+            gap: 12px
         }
 
         .gallery img {
@@ -1079,22 +1079,54 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            flex: 1
+            flex: 1;
+            padding: 22px 20px 20px
+        }
+
+        .tile-body .eyebrow {
+            display: block;
+            margin: 0 0 8px;
+            font-size: .72rem;
+            letter-spacing: .2em;
+            color: #8c715f;
+            font-weight: 700;
+            text-transform: uppercase
+        }
+
+        .tile-body h3 {
+            margin: 0 0 10px;
+            font-size: clamp(1.16rem, 1.3vw, 1.38rem);
+            line-height: 1.2;
+            min-height: 50px;
+            display: block;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box
         }
 
         .tile-body p:not(.price) {
-            min-height: 54px
+            margin: 0 0 10px;
+            line-height: 1.55;
+            min-height: 48px;
+            display: block;
+            width: 100%;
+            text-align: center
         }
 
         .tile-body .price {
-            min-height: auto;
-            margin: 8px 0 8px
+            min-height: 22px;
+            margin: 0 0 10px;
+            font-weight: 700;
+            color: var(--green);
+            display: block;
+            width: 100%;
+            text-align: center
         }
 
         .tile-body>.btn,
         .tile-body>a.btn,
         .tile-body>button.btn {
-            margin: 12px auto 0;
+            margin: 10px auto 0;
             margin-top: auto;
             min-width: 166px;
             flex: 0 0 auto
@@ -1454,8 +1486,12 @@
                 min-height: 490px
             }
 
+            .tile-body h3 {
+                min-height: 50px
+            }
+
             .tile-body p:not(.price) {
-                min-height: 48px
+                min-height: 46px
             }
         }
 
@@ -1484,12 +1520,16 @@
                 font-size: .54rem
             }
 
+            .tile-body h3 {
+                min-height: 48px
+            }
+
             .tile-body p:not(.price) {
-                min-height: 0
+                min-height: 44px
             }
 
             .grid.four.shop-grid .tile {
-                min-height: 0
+                min-height: auto
             }
 
             .tile-body>.btn,
@@ -1520,7 +1560,7 @@
             .grid:not(.four) > :last-child:nth-child(odd) {
                 grid-column: 1 / -1;
                 justify-self: center;
-                width: calc((100% - 23px) / 2)
+                width: calc((100% - 12px) / 2)
             }
 
             .gallery {
@@ -1530,7 +1570,7 @@
             .gallery > :nth-child(3):last-child {
                 grid-column: 1 / -1;
                 justify-self: center;
-                width: calc((100% - 16px) / 2)
+                width: calc((100% - 12px) / 2)
             }
 
             .links {
@@ -1973,7 +2013,7 @@
         const service = [['Personal Hair Consultation', 'A guided conversation about your hair goals, habits and preferred routine.', 'consult'], ['Scalp Wellness Ritual', 'A relaxing, non-medical scalp care experience focused on comfort and hydration.', 'scalp'], ['Hydration & Repair Spa', 'A conditioning ritual for softer-feeling hair and a polished finish.', 'spa'], ['Signature Styling Session', 'A tailored finishing session for your occasion and preferred look.', 'styling']];
         const hero = (title, desc, key = 'ritual', eyebrow = 'THE VELOURA EDIT') => `<section class="page-hero" style="background-image:url('${img(photos[key], 1600)}')"><div><span class="eyebrow" style="color:#f3d8bf">${eyebrow}</span><h1>${title}</h1><p>${desc}</p></div></section>`;
         const section = (title, desc, content, cls = '', eyebrow = 'CURATED RITUALS') => `<section class="${cls}"><div class="wrap"><div class="center reveal"><span class="eyebrow">${eyebrow}</span><h2>${title}</h2><p>${desc}</p></div>${content}</div></section>`;
-        const card = (title, desc, key, extra = '') => `<article class="tile reveal"><img src="${img(photos[key])}" alt="${title}" loading="lazy"><div class="tile-body"><h3>${title}</h3><p>${desc}</p>${extra}</div></article>`;
+        const card = (title, desc, key, extra = '', eyebrow = '') => `<article class="tile reveal"><img src="${img(photos[key])}" alt="${title}" loading="lazy"><div class="tile-body">${eyebrow ? `<span class="eyebrow">${eyebrow}</span>` : ''}<h3>${title}</h3><p>${desc}</p>${extra}</div></article>`;
         const split = (title, desc, key, cta = '', reverse = false, eyebrow = 'THE VELOURA WAY') => `<section class="${reverse ? 'band' : 'blush'}"><div class="wrap split reveal">${reverse ? '' : `<img src="${img(photos[key])}" alt="${title}" loading="lazy">`}<div><span class="eyebrow">${eyebrow}</span><h2>${title}</h2><p>${desc}</p>${cta}</div>${reverse ? `<img src="${img(photos[key])}" alt="${title}" loading="lazy">` : ''}</div></section>`;
         const btn = (text, route) => `<a class="btn" href="#${route}">${text} →</a>`;
         const rail = `<div class="rail"><span>${('✦ CLEAN BEAUTY &nbsp;&nbsp; ✦ HAIR-FIRST RITUALS &nbsp;&nbsp; ✦ THOUGHTFUL CARE &nbsp;&nbsp; ✦ EVERY TEXTURE WELCOME &nbsp;&nbsp; ').repeat(4)}</span></div>`;
@@ -1991,7 +2031,7 @@
             contact: () => pages.booking(),
             cart: () => `${hero('Your Beauty Bag', 'A simple local demo cart with no payment processing.', 'mask', 'YOUR SELECTIONS')}${section('Your selected rituals', 'Your bag is stored only for this browser session.', `<div id="cartbody" class="center"></div>`, '', 'BAG OVERVIEW')}${split('Keep discovering', 'Find the hair care essentials that fit your daily routine.', 'oil', btn('Continue shopping', 'shop'), false, 'CONTINUE EXPLORING')}`
         };
-        let cart = JSON.parse(sessionStorage.getItem('velouraCart') || '[]'); function add(i) { cart.push(i); sessionStorage.setItem('velouraCart', JSON.stringify(cart)); updateCount(); toast(product[i][0] + ' added to bag.') } function updateCount() { document.getElementById('count').textContent = cart.length } function toast(t) { const n = document.getElementById('toast'); n.textContent = t; n.classList.add('show'); clearTimeout(window.toastTimer); window.toastTimer = setTimeout(() => n.classList.remove('show'), 3500) } function submitDemo(e, msg) { e.preventDefault(); e.target.reset(); toast(msg) } function filterProducts() { const checked = document.getElementById('sulfate')?.checked; document.getElementById('products').innerHTML = product.map(([n, d, p, k], i) => !checked || i !== 3 ? card(n, d, k, `<p class="price">$${p}.00</p><button class="btn" onclick="add(${i})">Add to bag +</button>`) : '').join(''); observe() } function renderCart() { let box = document.getElementById('cartbody'); if (!box) return; if (!cart.length) { box.innerHTML = `<p>Your bag is empty.</p>${btn('Discover products', 'shop')}`; return } let sum = cart.reduce((a, i) => a + product[i][2], 0); box.innerHTML = `${cart.map((i, j) => `<p>${product[i][0]} — $${product[i][2]} <button class="btn outline" onclick="removeCart(${j})">Remove</button></p>`).join('')}<h3>Demo total: $${sum}.00</h3><button class="btn" onclick="toast('Checkout is not connected in this demo.')">Continue to checkout →</button>` } function removeCart(j) { cart.splice(j, 1); sessionStorage.setItem('velouraCart', JSON.stringify(cart)); updateCount(); renderCart() }
+        let cart = JSON.parse(sessionStorage.getItem('velouraCart') || '[]'); function add(i) { cart.push(i); sessionStorage.setItem('velouraCart', JSON.stringify(cart)); updateCount(); toast(product[i][0] + ' added to bag.') } function updateCount() { document.getElementById('count').textContent = cart.length } function toast(t) { const n = document.getElementById('toast'); n.textContent = t; n.classList.add('show'); clearTimeout(window.toastTimer); window.toastTimer = setTimeout(() => n.classList.remove('show'), 3500) } function submitDemo(e, msg) { e.preventDefault(); e.target.reset(); toast(msg) } function filterProducts() { const checked = document.getElementById('sulfate')?.checked; document.getElementById('products').innerHTML = product.map(([n, d, p, k], i) => !checked || i !== 3 ? card(n, d, k, `<p class="price">$${p}.00</p><button class="btn" onclick="add(${i})">Add to bag +</button>`) : '').join(''); observe(); syncCardBaselines(); requestAnimationFrame(syncCardBaselines); } function renderCart() { let box = document.getElementById('cartbody'); if (!box) return; if (!cart.length) { box.innerHTML = `<p>Your bag is empty.</p>${btn('Discover products', 'shop')}`; return } let sum = cart.reduce((a, i) => a + product[i][2], 0); box.innerHTML = `${cart.map((i, j) => `<p>${product[i][0]} — $${product[i][2]} <button class="btn outline" onclick="removeCart(${j})">Remove</button></p>`).join('')}<h3>Demo total: $${sum}.00</h3><button class="btn" onclick="toast('Checkout is not connected in this demo.')">Continue to checkout →</button>` } function removeCart(j) { cart.splice(j, 1); sessionStorage.setItem('velouraCart', JSON.stringify(cart)); updateCount(); renderCart() }
         const questions = [['What best describes your hair?', ['Straight', 'Wavy', 'Curly', 'Coily']], ['What is your main goal?', ['Hydration', 'Shine', 'Scalp comfort', 'Gentle cleansing']], ['How often do you wash?', ['Daily', 'Every few days', 'Weekly']]]; let qi = 0, answers = []; function renderQuiz() { const q = document.getElementById('question'); if (!q) return; if (qi >= questions.length) { const goal = answers[1]; const rec = goal === 0 ? 1 : goal === 1 ? 3 : goal === 2 ? 2 : 0; document.getElementById('quizbox').innerHTML = `<h3>Your suggested ritual</h3><p>Explore ${product[rec][0]} based on your selections.</p>${btn('Shop your suggestion', 'shop')} <button class="btn outline" onclick="qi=0;answers=[];navigate('quiz')">Start again</button>`; return } q.textContent = questions[qi][0]; document.getElementById('answers').innerHTML = questions[qi][1].map((a, i) => `<button class="quiz-option ${answers[qi] === i ? 'selected' : ''}" onclick="chooseQuiz(${i})">${a}</button>`).join(''); document.getElementById('nextQuiz').disabled = answers[qi] === undefined; document.getElementById('nextQuiz').textContent = qi === 2 ? 'See my ritual →' : 'Continue →' } function chooseQuiz(i) { answers[qi] = i; renderQuiz() } function nextQuiz() { if (answers[qi] === undefined) return; qi++; renderQuiz() } let magneticCleanup = null; function setupHeroMotion() { if (magneticCleanup) magneticCleanup(); const el = document.querySelector('[data-magnetic]'); if (!el) return; const wrap = el.closest('.hero-title-wrap'); if (!wrap) return; const move = e => { const r = wrap.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; el.style.transform = `translate(${x * 10}px,${y * 7}px)` }; const leave = () => { el.style.transform = 'translate(0,0)' }; wrap.addEventListener('pointermove', move); wrap.addEventListener('pointerleave', leave); magneticCleanup = () => { wrap.removeEventListener('pointermove', move); wrap.removeEventListener('pointerleave', leave) }; }
         const backToTopBtn = document.getElementById('backToTop');
         function handleScrollTop() {
@@ -2006,7 +2046,63 @@
         if (backToTopBtn) {
             backToTopBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        let observer; function observe() { observer?.disconnect(); observer = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); observer.unobserve(e.target) } }), { threshold: .08 }); document.querySelectorAll('.reveal').forEach((e, i) => { e.style.transitionDelay = (i % 4) * 85 + 'ms'; observer.observe(e) }) } function navigate(force) { const page = force || location.hash.slice(1) || 'home'; const p = pages[page] ? page : 'home'; document.getElementById('app').innerHTML = pages[p](); const navKey = (p === 'subscriptions' ? 'quiz' : (p === 'contact' ? 'booking' : (p === 'services' ? 'shop' : p))); document.querySelectorAll('.links a').forEach(a => { const href = a.getAttribute('href'); a.classList.toggle('active', href === '#' + p || href === '#' + navKey) }); document.getElementById('links').classList.remove('open'); document.querySelector('.menu').setAttribute('aria-expanded', 'false'); window.scrollTo(0, 0); observe(); setupHeroMotion(); handleScrollTop(); if (p === 'quiz' || p === 'subscriptions') { qi = 0; answers = []; renderQuiz() } if (p === 'cart') renderCart(); const pageTitles = { home: 'Veloura', shop: 'Shop & Services | Veloura', about: 'Our Story | Veloura', services: 'Shop & Services | Veloura', quiz: 'Hair Quiz & Subscriptions | Veloura', subscriptions: 'Hair Quiz & Subscriptions | Veloura', gallery: 'The Hair Gallery | Veloura', booking: 'Booking & Contact | Veloura', contact: 'Booking & Contact | Veloura', cart: 'Beauty Bag | Veloura' }; document.title = (pageTitles[p] || (p[0].toUpperCase() + p.slice(1) + ' | Veloura')) + ' — Hair Rituals' } document.querySelector('.menu').onclick = () => { let el = document.getElementById('links'); el.classList.toggle('open'); document.querySelector('.menu').setAttribute('aria-expanded', el.classList.contains('open')) }; window.addEventListener('hashchange', () => navigate()); updateCount(); navigate();
+        function syncCardBaselines() {
+            const grids = document.querySelectorAll('.grid, .shop-grid, .services-grid');
+            grids.forEach(grid => {
+                const tiles = Array.from(grid.querySelectorAll('.tile'));
+                if (!tiles.length) return;
+
+                tiles.forEach(tile => {
+                    const h = tile.querySelector('.tile-body h3, h3');
+                    if (h) h.style.minHeight = '';
+                    const p = tile.querySelector('.tile-body p:not(.price), p:not(.price)');
+                    if (p) p.style.minHeight = '';
+                });
+
+                const rows = [];
+                tiles.forEach(tile => {
+                    const top = tile.offsetTop;
+                    const existingRow = rows.find(r => Math.abs(r.top - top) <= 8);
+                    if (existingRow) {
+                        existingRow.tiles.push(tile);
+                    } else {
+                        rows.push({ top: top, tiles: [tile] });
+                    }
+                });
+
+                rows.forEach(row => {
+                    const headings = row.tiles.map(t => t.querySelector('.tile-body h3, h3')).filter(Boolean);
+                    const subtexts = row.tiles.map(t => t.querySelector('.tile-body p:not(.price), p:not(.price)')).filter(Boolean);
+
+                    if (headings.length > 0) {
+                        let maxH = 0;
+                        headings.forEach(h => {
+                            const hH = h.offsetHeight;
+                            if (hH > maxH) maxH = hH;
+                        });
+                        if (maxH > 0) {
+                            headings.forEach(h => {
+                                h.style.minHeight = maxH + 'px';
+                            });
+                        }
+                    }
+
+                    if (subtexts.length > 0) {
+                        let maxSub = 0;
+                        subtexts.forEach(p => {
+                            const pH = p.offsetHeight;
+                            if (pH > maxSub) maxSub = pH;
+                        });
+                        if (maxSub > 0) {
+                            subtexts.forEach(p => {
+                                p.style.minHeight = maxSub + 'px';
+                            });
+                        }
+                    }
+                });
+            });
+        }
+        let observer; function observe() { observer?.disconnect(); observer = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); observer.unobserve(e.target) } }), { threshold: .08 }); document.querySelectorAll('.reveal').forEach((e, i) => { e.style.transitionDelay = (i % 4) * 85 + 'ms'; observer.observe(e) }) } function navigate(force) { const page = force || location.hash.slice(1) || 'home'; const p = pages[page] ? page : 'home'; document.getElementById('app').innerHTML = pages[p](); const navKey = (p === 'subscriptions' ? 'quiz' : (p === 'contact' ? 'booking' : (p === 'services' ? 'shop' : p))); document.querySelectorAll('.links a').forEach(a => { const href = a.getAttribute('href'); a.classList.toggle('active', href === '#' + p || href === '#' + navKey) }); document.getElementById('links').classList.remove('open'); document.querySelector('.menu').setAttribute('aria-expanded', 'false'); window.scrollTo(0, 0); observe(); setupHeroMotion(); handleScrollTop(); syncCardBaselines(); requestAnimationFrame(syncCardBaselines); setTimeout(syncCardBaselines, 80); if (p === 'quiz' || p === 'subscriptions') { qi = 0; answers = []; renderQuiz() } if (p === 'cart') renderCart(); const pageTitles = { home: 'Veloura', shop: 'Shop & Services | Veloura', about: 'Our Story | Veloura', services: 'Shop & Services | Veloura', quiz: 'Hair Quiz & Subscriptions | Veloura', subscriptions: 'Hair Quiz & Subscriptions | Veloura', gallery: 'The Hair Gallery | Veloura', booking: 'Booking & Contact | Veloura', contact: 'Booking & Contact | Veloura', cart: 'Beauty Bag | Veloura' }; document.title = (pageTitles[p] || (p[0].toUpperCase() + p.slice(1) + ' | Veloura')) + ' — Hair Rituals' } document.querySelector('.menu').onclick = () => { let el = document.getElementById('links'); el.classList.toggle('open'); document.querySelector('.menu').setAttribute('aria-expanded', el.classList.contains('open')) }; window.addEventListener('hashchange', () => navigate()); window.addEventListener('resize', syncCardBaselines); window.addEventListener('orientationchange', syncCardBaselines); document.fonts?.ready?.then(syncCardBaselines); updateCount(); navigate(); requestAnimationFrame(syncCardBaselines); setTimeout(syncCardBaselines, 100);
     </script>
 </body>
 
